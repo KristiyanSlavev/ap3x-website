@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP3X — Precision Beyond Limits</title>
+  <title>AP3X — Web3 Growth & GTM Partner</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,14 +63,15 @@
     /* Custom Cursor */
     .cursor-dot {
       position: fixed;
+      top: -3px;
+      left: -3px;
       width: 6px;
       height: 6px;
       background: var(--brand);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease;
+      will-change: transform;
     }
     .cursor-ring {
       --ring-size: 36px;
@@ -237,11 +238,12 @@
 
     /* Background glows */
     .bg-glow {
-      position: fixed;
+      position: absolute;
       border-radius: 50%;
       filter: blur(120px);
       pointer-events: none;
       z-index: 0;
+      will-change: transform;
     }
 
     /* Nav */
@@ -250,7 +252,7 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       padding: 24px 48px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, backdrop-filter 0.4s ease;
     }
     #navbar.scrolled {
       padding: 16px 48px;
@@ -383,15 +385,59 @@
     .cta-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
     .cta-btn span { position: relative; z-index: 1; }
 
-    /* Scroll Indicator */
-    .scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, var(--brand), transparent);
-      animation: scrollPulse 2s ease infinite;
+    /* Scroll Indicator — mouse icon */
+    .scroll-mouse {
+      width: 28px;
+      height: 44px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-radius: 14px;
+      position: relative;
+      display: flex;
+      justify-content: center;
     }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
-      50% { opacity: 1; transform: scaleY(1); }
+    .scroll-mouse::before {
+      content: '';
+      width: 3px;
+      height: 10px;
+      background: var(--brand);
+      border-radius: 3px;
+      position: absolute;
+      top: 8px;
+      animation: scrollDot 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      box-shadow: 0 0 8px rgba(224,30,43,0.6);
+    }
+    @keyframes scrollDot {
+      0% { opacity: 1; transform: translateY(0); }
+      50% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 0; transform: translateY(14px); }
+    }
+    .scroll-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 12px;
+    }
+    .scroll-chevrons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      margin-top: 10px;
+    }
+    .scroll-chevron {
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid rgba(255,255,255,0.25);
+      border-bottom: 2px solid rgba(255,255,255,0.25);
+      transform: rotate(45deg);
+      animation: chevronBounce 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .scroll-chevron:nth-child(2) { animation-delay: 0.15s; opacity: 0.5; }
+    @keyframes chevronBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+      50% { transform: rotate(45deg) translateY(4px); opacity: 1; }
     }
 
     /* Section label line */
@@ -485,6 +531,117 @@
 
     /* Reveal base */
     .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* Process toggle section */
+    .process-toggle {
+      width: 52px;
+      height: 28px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 6px;
+      cursor: pointer;
+      transition: background 0.35s ease, border-color 0.35s ease;
+      flex-shrink: 0;
+    }
+    .process-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background 0.35s ease;
+    }
+    .process-toggle.active {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .process-toggle.active::after {
+      transform: translateX(24px);
+      background: #fff;
+    }
+    .process-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      transition: background 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
+      opacity: 0.45;
+    }
+    .process-step.checked {
+      background: rgba(224,30,43,0.04);
+      border-color: rgba(224,30,43,0.15);
+      opacity: 1;
+    }
+    .process-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .process-check svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .process-step.checked .process-check {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .process-step.checked .process-check svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .process-step-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      flex: 1;
+    }
+    .process-step-status {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .process-step.checked .process-step-status {
+      color: var(--brand);
+      opacity: 1;
+    }
+    .confetti-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .confetti-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 1px;
+      opacity: 0;
+    }
 
     /* Testimonials columns */
     .testimonial-col {
@@ -585,7 +742,7 @@
       </a>
       <div class="nav-links hidden md:flex gap-10">
         <a href="#about" data-text="About" class="text-[var(--text-dim)] no-underline font-body text-[13px] font-normal tracking-[0.08em] uppercase">About</a>
-        <a href="#services" data-text="Services" class="text-[var(--text-dim)] no-underline font-body text-[13px] font-normal tracking-[0.08em] uppercase">Services</a>
+        <a href="#services" data-text="Solutions" class="text-[var(--text-dim)] no-underline font-body text-[13px] font-normal tracking-[0.08em] uppercase">Solutions</a>
         <a href="#impact" data-text="Impact" class="text-[var(--text-dim)] no-underline font-body text-[13px] font-normal tracking-[0.08em] uppercase">Impact</a>
         <a href="#contact" data-text="Contact" class="text-[var(--text-dim)] no-underline font-body text-[13px] font-normal tracking-[0.08em] uppercase">Contact</a>
       </div>
@@ -599,7 +756,7 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu">
     <a href="#about" class="text-white no-underline font-display text-3xl font-bold uppercase tracking-tight">About</a>
-    <a href="#services" class="text-white no-underline font-display text-3xl font-bold uppercase tracking-tight">Services</a>
+    <a href="#services" class="text-white no-underline font-display text-3xl font-bold uppercase tracking-tight">Solutions</a>
     <a href="#impact" class="text-white no-underline font-display text-3xl font-bold uppercase tracking-tight">Impact</a>
     <a href="#contact" class="text-white no-underline font-display text-3xl font-bold uppercase tracking-tight">Contact</a>
   </div>
@@ -614,45 +771,49 @@
 
       <div class="hero-badge">
         <span class="pulse-dot"></span>
-        <span class="text-[12px] font-medium tracking-[0.1em] uppercase text-white/70">110 Projects Helped</span>
+        <span class="text-[12px] font-medium tracking-[0.1em] uppercase text-white/70">110+ Projects Helped</span>
       </div>
 
       <h1 class="font-display font-extrabold text-[clamp(32px,9vw,120px)] leading-[0.92] tracking-[-0.04em] uppercase mb-6">
-        <span class="line block overflow-hidden"><span class="line-inner">Precision</span></span>
+        <span class="line block overflow-hidden"><span class="line-inner">Growth</span></span>
         <span class="line block overflow-hidden"><span class="line-inner">Beyond</span></span>
         <span class="line block overflow-hidden"><span class="line-inner text-brand">Limits</span></span>
       </h1>
 
       <p class="hero-tagline text-[clamp(14px,1.5vw,17px)] text-[var(--text-dim)] font-light tracking-wide mb-12 max-w-md mx-auto opacity-0 translate-y-5">
-        Engineering tomorrow's solutions at the apex of innovation
+        Research-driven Web3 accelerator delivering GTM strategy, distribution, and capital
       </p>
 
-      <a href="#about" class="cta-btn inline-flex items-center gap-3 px-10 py-4 bg-transparent border border-brand text-white font-body text-[13px] font-medium tracking-[0.1em] uppercase no-underline cursor-none opacity-0 translate-y-5 pointer-events-auto">
-        <span data-text="Discover More">Discover More</span>
+      <a href="#contact" class="cta-btn inline-flex items-center gap-3 px-10 py-4 bg-transparent border border-brand text-white font-body text-[13px] font-medium tracking-[0.1em] uppercase no-underline cursor-none opacity-0 translate-y-5 pointer-events-auto">
+        <span data-text="Launch With Us">Launch With Us</span>
       </a>
     </div>
 
-    <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-0 pointer-events-none">
-      <span class="text-[11px] tracking-[0.15em] uppercase text-[var(--text-dim)]">Scroll</span>
-      <div class="scroll-line"></div>
+    <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 z-[4] flex flex-col items-center opacity-0 pointer-events-none">
+      <div class="scroll-mouse"></div>
+      <div class="scroll-chevrons">
+        <div class="scroll-chevron"></div>
+        <div class="scroll-chevron"></div>
+      </div>
+      <span class="scroll-label">Scroll</span>
     </div>
   </section>
 
   <!-- ========== MARQUEE ========== -->
   <div class="overflow-hidden border-b border-white/[0.04] py-8">
     <div class="marquee-track font-display text-[clamp(36px,5vw,56px)] font-extrabold uppercase tracking-tight">
-      <span>Precision</span><span class="dot mx-6">&middot;</span>
-      <span>Performance</span><span class="dot mx-6">&middot;</span>
-      <span>Innovation</span><span class="dot mx-6">&middot;</span>
-      <span>Excellence</span><span class="dot mx-6">&middot;</span>
-      <span>Precision</span><span class="dot mx-6">&middot;</span>
-      <span>Performance</span><span class="dot mx-6">&middot;</span>
-      <span>Innovation</span><span class="dot mx-6">&middot;</span>
-      <span>Excellence</span><span class="dot mx-6">&middot;</span>
-      <span>Precision</span><span class="dot mx-6">&middot;</span>
-      <span>Performance</span><span class="dot mx-6">&middot;</span>
-      <span>Innovation</span><span class="dot mx-6">&middot;</span>
-      <span>Excellence</span><span class="dot mx-6">&middot;</span>
+      <span>Strategy</span><span class="dot mx-6">&middot;</span>
+      <span>Distribution</span><span class="dot mx-6">&middot;</span>
+      <span>Capital</span><span class="dot mx-6">&middot;</span>
+      <span>Growth</span><span class="dot mx-6">&middot;</span>
+      <span>Strategy</span><span class="dot mx-6">&middot;</span>
+      <span>Distribution</span><span class="dot mx-6">&middot;</span>
+      <span>Capital</span><span class="dot mx-6">&middot;</span>
+      <span>Growth</span><span class="dot mx-6">&middot;</span>
+      <span>Strategy</span><span class="dot mx-6">&middot;</span>
+      <span>Distribution</span><span class="dot mx-6">&middot;</span>
+      <span>Capital</span><span class="dot mx-6">&middot;</span>
+      <span>Growth</span><span class="dot mx-6">&middot;</span>
     </div>
   </div>
 
@@ -663,10 +824,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
       <div>
         <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] leading-[1.1] tracking-[-0.03em] mb-6">
-          We don't follow trends.<br/>We set the <span class="text-brand">standard.</span>
+          We don't chase hype.<br/>We engineer <span class="text-brand">momentum.</span>
         </h2>
         <p class="reveal text-[15px] leading-[1.8] text-[var(--text-dim)] font-light max-w-lg">
-          AP3X is a next-generation technology firm that architects digital solutions engineered for performance, scale, and impact. We combine strategic vision with technical excellence to build what others think impossible.
+          AP3X is a research-driven Web3 accelerator, growth & capital partner. We deliver GTM strategy, alpha-group and influencer distribution, and targeted fundraising — building high-liquidity communities that ensure successful TGEs and enduring post-launch growth.
         </p>
       </div>
 
@@ -684,30 +845,84 @@
 
   <!-- ========== SERVICES ========== -->
   <section id="services" class="relative max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
-    <div class="section-label flex items-center gap-4 text-[12px] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-12">02 / Services</div>
+    <div class="section-label flex items-center gap-4 text-[12px] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-12">02 / Solutions</div>
 
-    <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em] mb-16">What We Architect</h2>
+    <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em] mb-16">What We Deliver</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Card 1 -->
       <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
         <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">01</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Digital Strategy</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">We map the terrain before others see the landscape. Our strategic frameworks turn complexity into competitive advantage.</p>
+        <h3 class="font-display text-xl font-bold tracking-tight mb-3">GTM Strategy & Advisory</h3>
+        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">We position your project for investors, build cult-like communities, and deliver go-to-market strategies that lead to successful TGEs and sustained post-launch traction.</p>
       </div>
 
       <!-- Card 2 -->
       <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
         <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">02</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Engineering</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Precision-built systems designed for scale. From architecture to deployment, every line of code serves a purpose.</p>
+        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Community & Distribution</h3>
+        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Drive token demand through alpha-group and KOL distribution. We reshape narratives, amplify attention, and ensure sustainable growth through our rich network of T1 CEXs, MMs, and ecosystem partners.</p>
       </div>
 
       <!-- Card 3 -->
       <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
         <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">03</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Innovation Lab</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Where bold ideas become breakthrough products. We prototype, test, and launch at the speed of thought.</p>
+        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Fundraising & Capital</h3>
+        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Targeted fundraising through VCs, angel investors, and HNW communities. We secure strategic capital that fuels growth and inspires lasting investor confidence and market momentum.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12"><div class="h-px bg-white/[0.06]"></div></div>
+
+  <!-- ========== PROCESS TOGGLE ========== -->
+  <section id="process" class="relative max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="reveal font-display font-bold text-[clamp(28px,4vw,48px)] tracking-[-0.03em] leading-[1.15]">
+        From Concept <span class="process-toggle" id="processToggle" role="switch" aria-checked="false" tabindex="0"></span> to TGE
+      </h2>
+      <p class="reveal text-[15px] text-[var(--text-dim)] font-light mt-5 leading-relaxed max-w-md mx-auto">
+        We handle the entire pipeline — strategy, community, distribution, and launch — so you can focus on building.
+      </p>
+    </div>
+
+    <div class="relative max-w-lg mx-auto flex flex-col gap-3" id="processSteps">
+      <div class="confetti-container" id="confettiContainer"></div>
+
+      <div class="process-step reveal" data-delay="0">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">Research & GTM strategy</span>
+        <span class="process-step-status">Complete</span>
+      </div>
+
+      <div class="process-step reveal" data-delay="1">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">Community building & narrative</span>
+        <span class="process-step-status">Complete</span>
+      </div>
+
+      <div class="process-step reveal" data-delay="2">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">KOL & alpha-group distribution</span>
+        <span class="process-step-status">Complete</span>
+      </div>
+
+      <div class="process-step reveal" data-delay="3">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">Fundraising & investor onboarding</span>
+        <span class="process-step-status">Complete</span>
+      </div>
+
+      <div class="process-step reveal" data-delay="4">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">TGE execution & launch</span>
+        <span class="process-step-status">Complete</span>
+      </div>
+
+      <div class="process-step reveal" data-delay="5">
+        <div class="process-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="process-step-label">Post-launch growth & sustainability</span>
+        <span class="process-step-status">Complete</span>
       </div>
     </div>
   </section>
@@ -719,75 +934,74 @@
     <div class="text-center max-w-lg mx-auto mb-12">
       <div class="reveal inline-block border border-white/[0.08] rounded-lg py-1 px-4 text-[12px] tracking-[0.15em] uppercase text-[var(--text-muted)] mb-5">Testimonials</div>
       <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em] leading-[1.1] mb-4">
-        What our <span class="text-brand">clients</span> say
+        What our <span class="text-brand">partners</span> say
       </h2>
       <p class="reveal text-[15px] text-[var(--text-dim)] font-light leading-relaxed">
-        The results speak through those who've experienced working with us.
+        The results speak through those who've launched with us.
       </p>
     </div>
 
     <div class="testimonials-mask flex justify-center gap-6 overflow-hidden" style="max-height: 740px;">
       <!-- Column 1 -->
       <div class="testimonial-col" style="--scroll-duration: 28s; padding-bottom: 24px;">
-        <!-- Card set (duplicated for seamless loop) -->
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X transformed our digital infrastructure completely. Their strategic approach to architecture reduced our deployment time by 60%."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X's GTM strategy completely reshaped our narrative before launch. The community they built wasn't just big — it was deeply engaged and converted at a rate we'd never seen."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Chen" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Sarah Chen</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CTO, Nexaflow</div>
+              <div class="text-[13px] font-medium tracking-tight">Founding Team</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">World Mobile</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The engineering precision is unmatched. Every system they built scales effortlessly under heavy load."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The fundraising execution was surgical. AP3X connected us with the right VCs and angel investors at exactly the right time, securing capital that fueled our entire growth phase."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Marcus Rivera" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Marcus Rivera</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">VP Engineering, Stratos</div>
+              <div class="text-[13px] font-medium tracking-tight">Core Team</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Arcium</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"From concept to launch in record time. AP3X delivered a product that exceeded every expectation we set."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"From community zero to a thriving ecosystem in weeks. AP3X's KOL network and alpha-group distribution gave us the attention we needed when it mattered most."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Voss" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Elena Voss</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Founder, Luminar</div>
+              <div class="text-[13px] font-medium tracking-tight">Growth Lead</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">EstateX</div>
             </div>
           </div>
         </div>
         <!-- Duplicate for loop -->
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X transformed our digital infrastructure completely. Their strategic approach to architecture reduced our deployment time by 60%."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X's GTM strategy completely reshaped our narrative before launch. The community they built wasn't just big — it was deeply engaged and converted at a rate we'd never seen."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Chen" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Sarah Chen</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CTO, Nexaflow</div>
+              <div class="text-[13px] font-medium tracking-tight">Founding Team</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">World Mobile</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The engineering precision is unmatched. Every system they built scales effortlessly under heavy load."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The fundraising execution was surgical. AP3X connected us with the right VCs and angel investors at exactly the right time, securing capital that fueled our entire growth phase."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Marcus Rivera" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Marcus Rivera</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">VP Engineering, Stratos</div>
+              <div class="text-[13px] font-medium tracking-tight">Core Team</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Arcium</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"From concept to launch in record time. AP3X delivered a product that exceeded every expectation we set."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"From community zero to a thriving ecosystem in weeks. AP3X's KOL network and alpha-group distribution gave us the attention we needed when it mattered most."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Voss" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Elena Voss</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Founder, Luminar</div>
+              <div class="text-[13px] font-medium tracking-tight">Growth Lead</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">EstateX</div>
             </div>
           </div>
         </div>
@@ -796,63 +1010,63 @@
       <!-- Column 2 (hidden on mobile) -->
       <div class="testimonial-col hidden md:flex" style="--scroll-duration: 34s; padding-bottom: 24px;">
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their innovation lab prototyped three solutions in the time it takes most agencies to scope one. Genuinely impressive velocity."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X doesn't just advise — they execute. Their team embedded with ours and drove chart performance that turned skeptics into believers."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Okonkwo" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">David Okonkwo</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CEO, Meridian Labs</div>
+              <div class="text-[13px] font-medium tracking-tight">Co-Founder</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">BluWhale</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"We needed a partner who could think at our scale. AP3X didn't just meet the brief — they redefined what was possible."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"We needed more than a marketing partner — we needed someone who understood tokenomics, market timing, and investor psychology. AP3X delivered on all three."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="Amara Osei" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Amara Osei</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Head of Product, Kinetic</div>
+              <div class="text-[13px] font-medium tracking-tight">Head of Growth</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">AITECH</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The level of detail in their technical delivery is something I haven't seen in 15 years of working with agencies."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The TGE went beyond our most optimistic projections. AP3X's ability to rally the right communities at the right moment is unmatched in this space."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="James Park" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">James Park</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Director, Arclight Digital</div>
+              <div class="text-[13px] font-medium tracking-tight">CEO</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Defi App</div>
             </div>
           </div>
         </div>
         <!-- Duplicate for loop -->
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their innovation lab prototyped three solutions in the time it takes most agencies to scope one. Genuinely impressive velocity."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X doesn't just advise — they execute. Their team embedded with ours and drove chart performance that turned skeptics into believers."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Okonkwo" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">David Okonkwo</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CEO, Meridian Labs</div>
+              <div class="text-[13px] font-medium tracking-tight">Co-Founder</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">BluWhale</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"We needed a partner who could think at our scale. AP3X didn't just meet the brief — they redefined what was possible."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"We needed more than a marketing partner — we needed someone who understood tokenomics, market timing, and investor psychology. AP3X delivered on all three."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="Amara Osei" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Amara Osei</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Head of Product, Kinetic</div>
+              <div class="text-[13px] font-medium tracking-tight">Head of Growth</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">AITECH</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The level of detail in their technical delivery is something I haven't seen in 15 years of working with agencies."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"The TGE went beyond our most optimistic projections. AP3X's ability to rally the right communities at the right moment is unmatched in this space."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="James Park" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">James Park</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Director, Arclight Digital</div>
+              <div class="text-[13px] font-medium tracking-tight">CEO</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Defi App</div>
             </div>
           </div>
         </div>
@@ -861,63 +1075,63 @@
       <!-- Column 3 (hidden on mobile + tablet) -->
       <div class="testimonial-col hidden lg:flex" style="--scroll-duration: 31s; padding-bottom: 24px;">
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X built our entire platform from zero. Two years later, it handles 10M+ users without breaking a sweat."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X's network of T1 exchanges and market makers gave us access we couldn't have built on our own. The liquidity depth post-launch was exactly what we needed."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Raj Patel" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Raj Patel</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CTO, Vantage AI</div>
+              <div class="text-[13px] font-medium tracking-tight">Founder</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">KiiChain</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their strategic consulting alone was worth the engagement. The execution that followed was a bonus we didn't expect."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Working with AP3X felt like gaining a growth co-founder. They don't just build hype — they build sustainable ecosystems that compound over time."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="Lisa Brennan" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Lisa Brennan</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">COO, Frontier Group</div>
+              <div class="text-[13px] font-medium tracking-tight">Operations Lead</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Fjord Foundry</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Working with AP3X felt like gaining a technical co-founder. They care about outcomes, not just deliverables."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their advisory on investor positioning and community narrative was a game-changer. We went from unknown to oversubscribed in our raise within weeks."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Tom Nakamura" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Tom Nakamura</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Founder, Codebridge</div>
+              <div class="text-[13px] font-medium tracking-tight">CMO</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Heurist</div>
             </div>
           </div>
         </div>
         <!-- Duplicate for loop -->
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X built our entire platform from zero. Two years later, it handles 10M+ users without breaking a sweat."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"AP3X's network of T1 exchanges and market makers gave us access we couldn't have built on our own. The liquidity depth post-launch was exactly what we needed."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Raj Patel" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Raj Patel</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">CTO, Vantage AI</div>
+              <div class="text-[13px] font-medium tracking-tight">Founder</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">KiiChain</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their strategic consulting alone was worth the engagement. The execution that followed was a bonus we didn't expect."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Working with AP3X felt like gaining a growth co-founder. They don't just build hype — they build sustainable ecosystems that compound over time."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="Lisa Brennan" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Lisa Brennan</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">COO, Frontier Group</div>
+              <div class="text-[13px] font-medium tracking-tight">Operations Lead</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Fjord Foundry</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Working with AP3X felt like gaining a technical co-founder. They care about outcomes, not just deliverables."</p>
+          <p class="text-[14px] leading-[1.75] text-[var(--text-dim)] font-light">"Their advisory on investor positioning and community narrative was a game-changer. We went from unknown to oversubscribed in our raise within weeks."</p>
           <div class="flex items-center gap-3 mt-6">
-            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Tom Nakamura" class="w-10 h-10 rounded-full object-cover">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" class="w-10 h-10 rounded-full object-cover">
             <div>
-              <div class="text-[13px] font-medium tracking-tight">Tom Nakamura</div>
-              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Founder, Codebridge</div>
+              <div class="text-[13px] font-medium tracking-tight">CMO</div>
+              <div class="text-[12px] text-[var(--text-muted)] tracking-tight">Heurist</div>
             </div>
           </div>
         </div>
@@ -935,10 +1149,11 @@
       <!-- Stat 1 -->
       <div class="reveal text-center flex-1">
         <div class="mb-2">
-          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="150">0</span>
-          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">+</span>
+          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">$</span>
+          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="1">0</span>
+          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">B+</span>
         </div>
-        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Projects Delivered</div>
+        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Volume Generated</div>
       </div>
 
       <div class="stat-divider hidden md:block"></div>
@@ -946,10 +1161,10 @@
       <!-- Stat 2 -->
       <div class="reveal text-center flex-1">
         <div class="mb-2">
-          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="98">0</span>
-          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">%</span>
+          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="80">0</span>
+          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">+</span>
         </div>
-        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Client Retention</div>
+        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Tokens Launched</div>
       </div>
 
       <div class="stat-divider hidden md:block"></div>
@@ -957,10 +1172,11 @@
       <!-- Stat 3 -->
       <div class="reveal text-center flex-1">
         <div class="mb-2">
-          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="12">0</span>
+          <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">$</span>
+          <span class="stat-number font-display text-[clamp(48px,6vw,76px)] font-extrabold tracking-[-0.04em]" data-target="500">0</span>
           <span class="font-display text-[clamp(28px,3.5vw,44px)] font-extrabold text-brand">M+</span>
         </div>
-        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Users Impacted</div>
+        <div class="text-[12px] tracking-[0.12em] uppercase text-[var(--text-muted)]">Investments Secured</div>
       </div>
     </div>
   </section>
@@ -970,7 +1186,7 @@
   <!-- ========== CTA / CONTACT ========== -->
   <section id="contact" class="relative text-center max-w-[1400px] mx-auto px-6 md:px-12 py-32 md:py-40 overflow-hidden">
     <h2 class="reveal font-display font-extrabold text-[clamp(36px,6vw,68px)] leading-[1.05] tracking-[-0.04em] mb-12">
-      Ready to reach<br/>the <span class="text-brand">apex</span>?
+      Ready to<br/><span class="text-brand">launch</span>?
     </h2>
     <a href="mailto:hello@ap3x.com" class="cta-btn reveal inline-flex items-center gap-3 px-14 py-5 bg-transparent border border-brand text-white font-body text-[14px] font-medium tracking-[0.1em] uppercase no-underline cursor-none">
       <span data-text="Start a Conversation">Start a Conversation</span>
@@ -982,9 +1198,9 @@
     <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       <img src="brand_assets/apex-logo-mark-full-colour-rgb-1200px@72ppi.png" alt="AP3X" class="w-7 h-7 object-contain opacity-40">
       <div class="flex gap-8">
-        <a href="#" class="text-[var(--text-muted)] no-underline text-[12px] tracking-[0.06em] uppercase hover:text-[var(--text)] transition-colors">Twitter</a>
+        <a href="#" class="text-[var(--text-muted)] no-underline text-[12px] tracking-[0.06em] uppercase hover:text-[var(--text)] transition-colors">X / Twitter</a>
+        <a href="#" class="text-[var(--text-muted)] no-underline text-[12px] tracking-[0.06em] uppercase hover:text-[var(--text)] transition-colors">Telegram</a>
         <a href="#" class="text-[var(--text-muted)] no-underline text-[12px] tracking-[0.06em] uppercase hover:text-[var(--text)] transition-colors">LinkedIn</a>
-        <a href="#" class="text-[var(--text-muted)] no-underline text-[12px] tracking-[0.06em] uppercase hover:text-[var(--text)] transition-colors">Instagram</a>
       </div>
       <p class="text-[11px] text-[var(--text-muted)]">&copy; 2026 AP3X. All rights reserved.</p>
     </div>
@@ -1012,11 +1228,18 @@
     const app = new Application(canvas);
     app.load('brand_assets/scene-clean.splinecode');
 
-    // Scroll fade
+    // Scroll fade (RAF-throttled)
+    let canvasTicking = false;
     window.addEventListener('scroll', () => {
-      const scrollProg = Math.min(window.scrollY / window.innerHeight, 1);
-      canvas.style.opacity = 1 - scrollProg * 0.85;
-    });
+      if (!canvasTicking) {
+        canvasTicking = true;
+        requestAnimationFrame(() => {
+          const scrollProg = Math.min(window.scrollY / window.innerHeight, 1);
+          canvas.style.opacity = 1 - scrollProg * 0.85;
+          canvasTicking = false;
+        });
+      }
+    }, { passive: true });
   </script>
 
   <!-- ============================================================ -->
@@ -1098,6 +1321,13 @@
       .to('.hero-content .cta-btn', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.25')
       .to('.scroll-indicator', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2');
 
+    /* ---- Scroll indicator fade-out (returns on scroll back) ---- */
+    ScrollTrigger.create({
+      start: 50,
+      onEnter: () => gsap.to('.scroll-indicator', { opacity: 0, duration: 0.3, ease: 'power2.in' }),
+      onLeaveBack: () => gsap.to('.scroll-indicator', { opacity: 1, duration: 0.4, ease: 'power2.out' }),
+    });
+
     /* ---- Nav scroll glass ---- */
     ScrollTrigger.create({
       start: 80,
@@ -1105,16 +1335,23 @@
       onLeaveBack: () => document.getElementById('navbar').classList.remove('scrolled'),
     });
 
-    /* ---- Hero parallax ---- */
+    /* ---- Hero parallax (RAF-throttled) ---- */
     const heroContent = document.querySelector('.hero-content');
+    let heroTicking = false;
     window.addEventListener('scroll', () => {
-      const s = window.scrollY;
-      const h = window.innerHeight;
-      if (s < h) {
-        heroContent.style.transform = `translateY(${s * 0.25}px)`;
-        heroContent.style.opacity = 1 - (s / h) * 1.2;
+      if (!heroTicking) {
+        heroTicking = true;
+        requestAnimationFrame(() => {
+          const s = window.scrollY;
+          const h = window.innerHeight;
+          if (s < h) {
+            heroContent.style.transform = `translateY(${s * 0.25}px)`;
+            heroContent.style.opacity = 1 - (s / h) * 1.2;
+          }
+          heroTicking = false;
+        });
       }
-    });
+    }, { passive: true });
 
     /* ---- Section reveals ---- */
     document.querySelectorAll('.reveal').forEach(el => {
@@ -1174,9 +1411,8 @@
     document.addEventListener('mousemove', e => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-      dot.style.left = mouse.x + 'px';
-      dot.style.top = mouse.y + 'px';
-    });
+      dot.style.transform = `translate(${mouse.x}px, ${mouse.y}px)`;
+    }, { passive: true });
 
     (function cursorTick() {
       // Smooth follow
@@ -1239,6 +1475,70 @@
       if (!span) return;
       btn.addEventListener('mouseenter', () => scramble(span, span.dataset.text, 0.4));
       btn.addEventListener('mouseleave', () => unscramble(span));
+    });
+
+    /* ---- Process toggle ---- */
+    const processToggle = document.getElementById('processToggle');
+    const processSteps = document.querySelectorAll('.process-step');
+    const confettiContainer = document.getElementById('confettiContainer');
+    let processActive = false;
+
+    function spawnConfetti() {
+      const colors = ['#E01E2B', '#FF2D3B', '#fff', '#E01E2B', '#ff6b6b', '#ffd93d'];
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'confetti-particle';
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.width = (3 + Math.random() * 5) + 'px';
+        particle.style.height = (3 + Math.random() * 5) + 'px';
+        particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '1px';
+        confettiContainer.appendChild(particle);
+        const angle = (Math.random() * 360) * (Math.PI / 180);
+        const velocity = 80 + Math.random() * 160;
+        const x = Math.cos(angle) * velocity;
+        const y = Math.sin(angle) * velocity - 40;
+        gsap.fromTo(particle,
+          { x: 0, y: 0, opacity: 1, rotation: 0 },
+          {
+            x: x, y: y, opacity: 0,
+            rotation: Math.random() * 360,
+            duration: 0.7 + Math.random() * 0.5,
+            ease: 'power2.out',
+            onComplete: () => particle.remove()
+          }
+        );
+      }
+    }
+
+    function toggleProcess() {
+      processActive = !processActive;
+      processToggle.classList.toggle('active', processActive);
+      processToggle.setAttribute('aria-checked', processActive);
+
+      processSteps.forEach((step, i) => {
+        if (processActive) {
+          gsap.to(step, {
+            delay: i * 0.08,
+            duration: 0.01,
+            onComplete: () => step.classList.add('checked')
+          });
+        } else {
+          gsap.to(step, {
+            delay: (processSteps.length - 1 - i) * 0.06,
+            duration: 0.01,
+            onComplete: () => step.classList.remove('checked')
+          });
+        }
+      });
+
+      if (processActive) {
+        setTimeout(spawnConfetti, processSteps.length * 80 + 50);
+      }
+    }
+
+    processToggle.addEventListener('click', toggleProcess);
+    processToggle.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleProcess(); }
     });
 
     /* ---- Tilt cards ---- */
