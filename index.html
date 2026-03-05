@@ -493,6 +493,35 @@
     }
     .orbit { will-change: transform; }
 
+    /* Solutions horizontal scroll */
+    .solutions-scroll-wrap {
+      overflow: hidden;
+    }
+    .solutions-track {
+      display: flex;
+      gap: 0;
+      width: fit-content;
+    }
+    .sol-card {
+      width: 70vw;
+      max-width: 900px;
+      min-width: 340px;
+      flex-shrink: 0;
+      padding: 0 16px;
+    }
+    .sol-card-inner {
+      padding: clamp(40px, 5vw, 64px);
+      height: 100%;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    @media (max-width: 768px) {
+      .sol-card { width: 85vw; }
+      .sol-card-inner { min-height: 360px; }
+    }
+
     /* Tilt Cards */
     .tilt-card {
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -875,7 +904,7 @@
           We don't chase hype.<br/>We engineer <span class="text-brand">momentum.</span>
         </h2>
         <p class="reveal text-[15px] leading-[1.8] text-[var(--text-dim)] font-light max-w-lg">
-          AP3X is a research-driven Web3 accelerator, growth & capital partner. We deliver GTM strategy, alpha-group and influencer distribution, and targeted fundraising — building high-liquidity communities that ensure successful TGEs and enduring post-launch growth.
+          Ap3x is a research-driven Web3 capital and growth partner connecting ambitious projects with strategic investors, influential communities, and the network needed to scale.
         </p>
       </div>
 
@@ -891,32 +920,41 @@
 
   <div class="max-w-[1400px] mx-auto px-6 md:px-12"><div class="h-px bg-white/[0.06]"></div></div>
 
-  <!-- ========== SERVICES ========== -->
-  <section id="services" class="relative max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
-    <div class="section-label flex items-center gap-4 text-[12px] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-12">02 / Solutions</div>
+  <!-- ========== SERVICES (Horizontal Scroll) ========== -->
+  <section id="services" class="relative">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-24 md:pt-32 pb-12">
+      <div class="section-label flex items-center gap-4 text-[12px] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-12">02 / Solutions</div>
+      <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em]">What We Deliver</h2>
+    </div>
 
-    <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em] mb-16">What We Deliver</h2>
+    <div class="solutions-scroll-wrap">
+      <div class="solutions-track">
+        <!-- Card 1 -->
+        <div class="sol-card">
+          <div class="sol-card-inner tilt-card relative bg-[var(--surface)] border border-white/[0.06] rounded-2xl overflow-hidden" style="transform-style:preserve-3d">
+            <div class="card-num font-display text-[80px] font-extrabold text-[var(--elevated)] leading-none mb-8 transition-colors duration-300">01</div>
+            <h3 class="font-display text-[clamp(22px,2.5vw,32px)] font-bold tracking-tight mb-4">GTM Strategy & Advisory</h3>
+            <p class="text-[15px] leading-[1.8] text-[var(--text-dim)] font-light max-w-md">We position your project for investors, build cult-like communities, and deliver go-to-market strategies that lead to successful TGEs and sustained post-launch traction.</p>
+          </div>
+        </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Card 1 -->
-      <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
-        <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">01</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">GTM Strategy & Advisory</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">We position your project for investors, build cult-like communities, and deliver go-to-market strategies that lead to successful TGEs and sustained post-launch traction.</p>
-      </div>
+        <!-- Card 2 -->
+        <div class="sol-card">
+          <div class="sol-card-inner tilt-card relative bg-[var(--surface)] border border-white/[0.06] rounded-2xl overflow-hidden" style="transform-style:preserve-3d">
+            <div class="card-num font-display text-[80px] font-extrabold text-[var(--elevated)] leading-none mb-8 transition-colors duration-300">02</div>
+            <h3 class="font-display text-[clamp(22px,2.5vw,32px)] font-bold tracking-tight mb-4">Community & Distribution</h3>
+            <p class="text-[15px] leading-[1.8] text-[var(--text-dim)] font-light max-w-md">Drive token demand through alpha-group and KOL distribution. We reshape narratives, amplify attention, and ensure sustainable growth through our rich network of T1 CEXs, MMs, and ecosystem partners.</p>
+          </div>
+        </div>
 
-      <!-- Card 2 -->
-      <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
-        <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">02</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Community & Distribution</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Drive token demand through alpha-group and KOL distribution. We reshape narratives, amplify attention, and ensure sustainable growth through our rich network of T1 CEXs, MMs, and ecosystem partners.</p>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="tilt-card reveal relative bg-[var(--surface)] border border-white/[0.06] rounded-xl p-10 md:p-12 overflow-hidden" style="transform-style:preserve-3d">
-        <div class="card-num font-display text-[64px] font-extrabold text-[var(--elevated)] leading-none mb-6 transition-colors duration-300">03</div>
-        <h3 class="font-display text-xl font-bold tracking-tight mb-3">Fundraising & Capital</h3>
-        <p class="text-[14px] leading-relaxed text-[var(--text-dim)] font-light">Targeted fundraising through VCs, angel investors, and HNW communities. We secure strategic capital that fuels growth and inspires lasting investor confidence and market momentum.</p>
+        <!-- Card 3 -->
+        <div class="sol-card">
+          <div class="sol-card-inner tilt-card relative bg-[var(--surface)] border border-white/[0.06] rounded-2xl overflow-hidden" style="transform-style:preserve-3d">
+            <div class="card-num font-display text-[80px] font-extrabold text-[var(--elevated)] leading-none mb-8 transition-colors duration-300">03</div>
+            <h3 class="font-display text-[clamp(22px,2.5vw,32px)] font-bold tracking-tight mb-4">Fundraising & Capital</h3>
+            <p class="text-[15px] leading-[1.8] text-[var(--text-dim)] font-light max-w-md">Targeted fundraising through VCs, angel investors, and HNW communities. We secure strategic capital that fuels growth and inspires lasting investor confidence and market momentum.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1387,6 +1425,54 @@
       onEnter: () => document.getElementById('navbar').classList.add('scrolled'),
       onLeaveBack: () => document.getElementById('navbar').classList.remove('scrolled'),
     });
+
+    /* ---- Solutions horizontal scroll with snap + parallax ---- */
+    (() => {
+      const track = document.querySelector('.solutions-track');
+      const cards = gsap.utils.toArray('.sol-card');
+      if (!track || cards.length < 2) return;
+
+      const totalScroll = () => track.scrollWidth - window.innerWidth;
+
+      // Main horizontal scroll
+      const solTween = gsap.to(track, {
+        x: () => -totalScroll(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#services',
+          start: 'top top',
+          end: () => '+=' + totalScroll(),
+          pin: true,
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (cards.length - 1),
+            duration: { min: 0.25, max: 0.6 },
+            delay: 0.1,
+            ease: 'power1.inOut',
+          },
+        },
+      });
+
+      // Parallax on inner content
+      cards.forEach((card, i) => {
+        const inner = card.querySelector('.sol-card-inner');
+        gsap.fromTo(inner,
+          { x: 80 },
+          {
+            x: -80,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#services',
+              start: 'top top',
+              end: () => '+=' + totalScroll(),
+              scrub: 0.5,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    })();
 
     /* ---- Hero parallax (RAF-throttled) ---- */
     const heroContent = document.querySelector('.hero-content');
