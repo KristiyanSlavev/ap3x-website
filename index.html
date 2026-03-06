@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow-x:hidden;">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1018,15 +1018,14 @@
   <!-- Noise Overlay -->
   <div class="noise-overlay"></div>
 
-  <!-- Site wrapper — prevents horizontal overflow on mobile -->
-  <div id="site-wrap" style="overflow-x:hidden; position:relative;">
-
   <!-- Grid Pattern Overlay -->
   <div class="grid-overlay"></div>
 
-  <!-- Background Glows -->
-  <div class="bg-glow" style="width:700px;height:700px;background:#E01E2B;top:-300px;right:-250px;opacity:0.05;"></div>
-  <div class="bg-glow" style="width:500px;height:500px;background:#1a2a6c;bottom:20%;left:-200px;opacity:0.045;"></div>
+  <!-- Background Glows — contained to prevent mobile overflow -->
+  <div style="position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;">
+    <div class="bg-glow" style="width:700px;height:700px;background:#E01E2B;top:-300px;right:-250px;opacity:0.05;"></div>
+    <div class="bg-glow" style="width:500px;height:500px;background:#1a2a6c;bottom:20%;left:-200px;opacity:0.045;"></div>
+  </div>
 
   <!-- Navigation -->
   <nav id="navbar">
@@ -1705,8 +1704,6 @@
       </footer>
     </div>
   </div>
-
-  </div><!-- /site-wrap -->
 
   <!-- ============================================================ -->
   <!-- SPLINE — Interactive 3D Hero                                 -->
