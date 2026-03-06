@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x:hidden;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1018,6 +1018,9 @@
   <!-- Noise Overlay -->
   <div class="noise-overlay"></div>
 
+  <!-- Site wrapper — prevents horizontal overflow on mobile -->
+  <div id="site-wrap" style="overflow-x:hidden; position:relative;">
+
   <!-- Grid Pattern Overlay -->
   <div class="grid-overlay"></div>
 
@@ -1130,7 +1133,7 @@
 
 
   <!-- ========== SERVICES (Horizontal Scroll) ========== -->
-  <section id="services" class="relative">
+  <section id="services" class="relative overflow-x-hidden">
     <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-24 md:pt-32 pb-12">
       <div class="section-label flex items-center gap-4 text-[12px] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-12">02 / Solutions</div>
       <h2 class="reveal font-display font-bold text-[clamp(30px,4vw,50px)] tracking-[-0.03em]">What We Deliver</h2>
@@ -1703,15 +1706,25 @@
     </div>
   </div>
 
+  </div><!-- /site-wrap -->
+
   <!-- ============================================================ -->
   <!-- SPLINE — Interactive 3D Hero                                 -->
   <!-- ============================================================ -->
   <script type="module">
-    import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js';
-
     const canvas = document.getElementById('canvas3d');
-    const app = new Application(canvas);
-    app.load('brand_assets/scene-clean.splinecode');
+    const isMobile = window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+      // Defer Spline load until after page is interactive
+      window.addEventListener('load', async () => {
+        const { Application } = await import('https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js');
+        const app = new Application(canvas);
+        app.load('brand_assets/scene-clean.splinecode');
+      }, { once: true });
+    } else {
+      canvas.style.display = 'none';
+    }
 
     // Scroll fade (RAF-throttled)
     let canvasTicking = false;
